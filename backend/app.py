@@ -9,7 +9,7 @@ from flask_migrate import Migrate
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 sys.path.append(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'services'))
 
-from config import Config
+from config import Config, get_database_uri
 from database import db
 import models  # Ensure models are registered
 
@@ -27,6 +27,7 @@ migrate = Migrate()
 def create_app(config_class=Config):
     app = Flask(__name__)
     app.config.from_object(config_class)
+    app.config['SQLALCHEMY_DATABASE_URI'] = get_database_uri()
 
     # Enable CORS for all origins in dev mode
     CORS(app, resources={r"/api/*": {"origins": "*"}, r"/uploads/*": {"origins": "*"}})
