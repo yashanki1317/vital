@@ -1,0 +1,20 @@
+# Python & Flask
+__pycache__/
+*.py[cod]
+*$py.class
+backend/venv/
+backend/vital.db
+backend/uploads/avatars/*
+!backend/uploads/avatars/.gitkeep
+backend/.env
+
+# Node & Frontend
+node_modules/
+frontend/node_modules/
+frontend/dist/
+.DS_Store
+
+# Environment & Logs
+*.log
+.env
+.env.local
