@@ -3,8 +3,24 @@ import type {
   AIChatMessageItem, ChatConversationItem, TrendSeriesPoint
 } from '../types';
 
-const API_BASE_URL = 'http://localhost:5001/api';
-export const UPLOADS_BASE_URL = 'http://localhost:5001';
+const getRawApiUrl = (): string => {
+  const envUrl = import.meta.env.VITE_API_URL;
+  if (envUrl && typeof envUrl === 'string' && envUrl.trim() !== '') {
+    return envUrl.trim().replace(/\/+$/, '');
+  }
+  return 'https://vital-bxus.onrender.com';
+};
+
+const rawBaseUrl = getRawApiUrl();
+
+export const API_BASE_URL = rawBaseUrl.endsWith('/api')
+  ? rawBaseUrl
+  : `${rawBaseUrl}/api`;
+
+export const UPLOADS_BASE_URL = rawBaseUrl.endsWith('/api')
+  ? rawBaseUrl.slice(0, -4)
+  : rawBaseUrl;
+
 
 class ApiService {
   private token: string | null = null;
